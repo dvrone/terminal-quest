@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-font="md">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Terminal Quest: learn the Linux command line through practical missions in a safe, simulated terminal.">
+  <title>Terminal Quest</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23161b1f'/%3E%3Cpath d='M8 11l6 5-6 5' fill='none' stroke='%237fb69a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M17 22h7' stroke='%237fb69a' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- ============ Sidebar ============ -->
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">&gt;_</span>
+        <span class="brand-name">Terminal Quest</span>
+      </div>
+
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-item" data-view="dashboard" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-item" data-view="terminal" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          <span>Terminal</span>
+        </button>
+        <button class="nav-item" data-view="missions" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4"/><path d="M5 4h12l-2.5 4L17 12H5"/></svg>
+          <span>Missions</span>
+        </button>
+        <button class="nav-item" data-view="progress" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="6" y1="20" x2="6" y2="12"/><line x1="12" y1="20" x2="12" y2="5"/><line x1="18" y1="20" x2="18" y2="9"/></svg>
+          <span>Progress</span>
+        </button>
+        <button class="nav-item" data-view="settings" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="9" cy="7" r="2.2"/><circle cx="15" cy="17" r="2.2"/></svg>
+          <span>Settings</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer" id="sidebar-summary" aria-live="polite"></div>
+    </aside>
+
+    <!-- ============ Main ============ -->
+    <main class="main" id="main">
+
+      <!-- Dashboard -->
+      <section class="view" id="view-dashboard" data-view="dashboard" aria-labelledby="title-dashboard">
+        <header class="page-header">
+          <h1 id="title-dashboard">Dashboard</h1>
+          <p>Learn the Linux command line one mission at a time.</p>
+        </header>
+
+        <div class="stats" id="dash-stats"></div>
+
+        <div class="card level-card" id="dash-level"></div>
+
+        <div class="grid-2">
+          <div class="card" id="dash-mission"></div>
+          <div class="card" id="dash-achievements"></div>
+        </div>
+      </section>
+
+      <!-- Terminal -->
+      <section class="view" id="view-terminal" data-view="terminal" aria-labelledby="title-terminal" hidden>
+        <h1 id="title-terminal" class="sr-only">Terminal</h1>
+        <div class="terminal-layout">
+          <div class="terminal" id="terminal">
+            <div class="terminal-bar">
+              <span class="terminal-title" id="terminal-title">player@terminal-quest: ~</span>
+              <button class="btn btn--ghost btn--sm" id="btn-clear" type="button" title="Clear the terminal screen (Ctrl+L)">Clear</button>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+              <div class="terminal-output" id="terminal-output" role="log" aria-live="polite" aria-label="Terminal output"></div>
+              <form class="terminal-input-row" id="terminal-form" autocomplete="off">
+                <label class="prompt" id="terminal-prompt" for="terminal-input"></label>
+                <input id="terminal-input" type="text" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Command input">
+              </form>
+            </div>
+          </div>
+
+          <aside class="card mission-panel" id="mission-panel" aria-label="Current mission"></aside>
+        </div>
+      </section>
+
+      <!-- Missions -->
+      <section class="view" id="view-missions" data-view="missions" aria-labelledby="title-missions" hidden>
+        <header class="page-header">
+          <h1 id="title-missions">Missions</h1>
+          <p>Complete missions in order. Each one unlocks the next.</p>
+        </header>
+        <div id="missions-list" class="missions-list"></div>
+      </section>
+
+      <!-- Progress -->
+      <section class="view" id="view-progress" data-view="progress" aria-labelledby="title-progress" hidden>
+        <header class="page-header">
+          <h1 id="title-progress">Progress</h1>
+          <p>Your XP, level progress and achievements.</p>
+        </header>
+        <div class="stats" id="progress-stats"></div>
+        <div class="card" id="progress-levels"></div>
+        <div class="card" id="progress-achievements"></div>
+      </section>
+
+      <!-- Settings -->
+      <section class="view" id="view-settings" data-view="settings" aria-labelledby="title-settings" hidden>
+        <header class="page-header">
+          <h1 id="title-settings">Settings</h1>
+          <p>Preferences are saved in this browser.</p>
+        </header>
+        <div class="card settings" id="settings-panel"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+  <!-- Classic scripts (no modules) so the app also works when opened via file:// -->
+  <script src="js/audio.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="js/filesystem.js"></script>
+  <script src="js/commands.js"></script>
+  <script src="js/missions.js"></script>
+  <script src="js/terminal.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
